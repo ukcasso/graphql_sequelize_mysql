@@ -59,7 +59,7 @@ const resolvers = {
     },
     updateUser: async (_, { id, firstName, lastName, password }) => {
       console.log(id)
-      const oldUser = await User.update({firstName, lastName, password},{where: { id: id } });
+      const oldUser = await User.update({firstName, lastName, password}, {where: { id: id } });
       const user = await User.findOne( { where: { id: id } });
       return user;
     },
@@ -71,16 +71,6 @@ const resolvers = {
     },
   }
 };
-
-// 쿼리 날리는 방법 예
-// mutation{
-//   createUser(firstName: "gdsg2", lastName: "2", password: "2"){
-//     firstName
-//     lastName
-//     password
-//   }
-// }
-
 
 const server = new ApolloServer({ typeDefs, resolvers });
 server.applyMiddleware({ app, path });
