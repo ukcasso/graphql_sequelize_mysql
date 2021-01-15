@@ -6,25 +6,37 @@ import { ApolloProvider, gql } from '@apollo/client';
 
 
 
-  const GET_USER = gql`
-    query{
-      getUserData{
-        firstName
-        lastName
-        password
-      }
-    }
-  `
 
   function App() {
-    const { loading, error, data } = useQuery(GET_USER);
 
+    const [user, setUser] = useState("");
+  
+
+    const GET_USER = gql`
+      query{
+        getUserData{
+          firstName
+          lastName
+          password
+        }
+      }
+      `
+      
+      useEffect(() => {
+        
+        setUser(data?.getUserData)
+    },[])
+
+    console.log(user)
+    const { loading, error, data } = useQuery(GET_USER);
+    
     if (loading) return <p>'Loading...'</p>
     if (error) return `Error ${error.message}`
-
+    
     return (
-      <div>
-        <h1>{data.getUserData[0].firstName}</h1>
+      <div data={user}>
+        {console.log(user)}
+        <h1 onChange={}>{data.getUserData.map((value, key)=> (<div>{value.firstName}</div>))}</h1>
         <h2>My first Apollo app 🚀</h2>
       </div>
   );
